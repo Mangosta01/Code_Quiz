@@ -24,26 +24,26 @@ var quiz = [
     {
         title: " How do you write a strict equality operator?",
         options: ["=", "==", "===", "=+="],
-        answer: 2,
+        answer: "===",
     },
 
 
     {
         title: "What is the meaning of the word var in JavaScript?",
         options: ["variety", "variation", "var", "variable"],
-        answer: 3,
+        answer: "variable",
     },
 
     {
         title: "Which brackets do you use to list the element of an array? ",
         options: ["[]", "()", "{}", "<>"],
-        answer: 0,
+        answer: "[]",
     },
 
     {
         title: "What is the meaning of HTML DOM?",
         options: ["HTML Domain", "HTML Domestic", "HTML Document Object Model", "HTML Document Object Measure"],
-        answer: 2
+        answer: "HTML Document Object Model"
     }
 
 ]
@@ -62,29 +62,29 @@ var questionIndex = 0;
 quizStart.addEventListener("click", function () {
 
     // create a function that launch a timer after event click
-    
-
-        var timerInterval = setInterval(function () {
-
-            secondsLeft--;
-            timing.textContent = secondsLeft;
-
-            if (secondsLeft === 0) {
-                // Stops execution of action at set interval
-                clearInterval(timerInterval);
-            }
 
 
+    var timerInterval = setInterval(function () {
 
-        }, 1000);
+        secondsLeft--;
+        timing.textContent = secondsLeft;
 
-        startScreen.classList.add("hide");
-        questions.classList.remove("hide");
-        questions.classList.remove("start");
-    
-        publishQuestion();
+        if (secondsLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+        }
 
-    
+
+
+    }, 1000);
+
+    startScreen.classList.add("hide");
+    questions.classList.remove("hide");
+    questions.classList.remove("start");
+
+    publishQuestion();
+
+
 });
 
 var ol = document.createElement("ol");
@@ -99,7 +99,7 @@ function publishQuestion() {
     var questionTitle = document.getElementById("question-title");
 
 
-
+    questionTitle.textContent = question.title;
 
 
     ol.innerHTML = "";
@@ -114,7 +114,97 @@ function publishQuestion() {
         button.appendChild(li);
         ol.appendChild(button);
         choices.appendChild(ol);
+        checkAnswer();
+    }
 
+
+
+};
+
+
+/*
+question.options.forEach(choicesArray);
+
+function choicesArray(element) {
+    button = document.createElement("button");
+
+    li = document.createElement("li");
+    li.setAttribute("style", "background-color: #563d7c")
+    li.textContent = element;
+
+    button.appendChild(li);
+    ol.appendChild(button);
+    choices.appendChild(ol);
+    checkAnswer();
+};
+
+*/
+
+
+
+
+
+
+/* for (var j = 0; j < currentQuestion.options.length; j++) {
+       choices[j] = currentQuestion.options[j];
+       li = document.createElement("li");
+       li.setAttribute("style", "background-color: #563d7c");
+       li.textContent = choices[j];
+       button = document.createElement("button");
+       button.appendChild(li);
+       ol.appendChild(button);
+       checkAnswer();
+   }*/
+
+/*
+          quiz[0].options.forEach(choicesArray);
+  
+          function choicesArray(element) {
+              li = document.createElement("li");
+              li.setAttribute("style", "background-color: #563d7c")
+              li.textContent = element;
+              button = document.createElement("button");
+              button.appendChild(li);
+              ol.appendChild(button);
+              
+          };*/
+
+
+
+function checkAnswer() {
+
+
+
+
+
+    // When answer is clicked, provide result and  the next question appear - If answer is incorrect, reduce time left
+
+    button.addEventListener("click", function (event) {
+
+        li = event.target;
+
+        var answerCheck = document.querySelector("#feedback");
+        answerCheck.setAttribute("class", "feedback");
+
+        // Provides answers feed-back after clicking on answers
+
+        if (li.textContent === quiz[questionIndex].answer) {
+            answerCheck.innerHTML = "Correct";
+            questions.appendChild(answerCheck);
+        }
+
+        // when providing a wrong answers, substract time from the timer
+        else {
+            answerCheck.innerHTML = "Incorrect";
+            questions.appendChild(answerCheck);
+
+            if (secondsLeft <= 10) {
+                secondsLeft = 0;
+            }
+            else {
+                secondsLeft -= 10;
+            }
+        };
 
         setTimeout(function () {
             feedback.setAttribute("class", "feedback hide");
@@ -130,15 +220,11 @@ function publishQuestion() {
             publishQuestion();
         }
 
+        console.log(answerCheck.innerHTML);
+    });
 
 
 };
-
-
-
-
-
-
 
 
 
