@@ -3,9 +3,11 @@ var questionTitle = document.querySelector("#question-title");
 var choices = document.querySelector("#choices");
 var quizStart = document.querySelector("#start");
 var timing = document.querySelector(".timer");
-var quizPage = document.querySelector(".wrapper")
-var scores = document.querySelector(".scores")
-var startScreen = document.querySelector(".start")
+var quizPage = document.querySelector(".wrapper");
+var scores = document.querySelector(".scores");
+var startScreen = document.querySelector(".start");
+var chosenAnswer = document.querySelector(".choices");
+
 
 // create the list of questions and answer choices
 
@@ -14,8 +16,8 @@ var quiz = [
 
     {
         title: " What does HTML stand for?",
-        options: ["High Texture Machine Learning", "Hypertext Machine Language", "Hover The Mouse Left", "Hight Temperature Measurement Lens"],
-        answer: 1,
+        options: ["High Texture Machine Learning", "Hypertext Machine Language", "Hover The Mouse Left", "High Temperature Measurement Lens"],
+        answer: "Hypertext Machine Language",
     },
 
 
@@ -46,8 +48,10 @@ var quiz = [
 
 ]
 
+
+
 console.log(quiz[0].title);
-console.log(quiz[0].options.length)
+console.log(quiz[0].answer)
 
 var secondsLeft = 60;
 
@@ -95,7 +99,7 @@ function publishQuestion() {
     var questionTitle = document.getElementById("question-title");
 
 
-    questionTitle.textContent = question.title;
+
 
 
     ol.innerHTML = "";
@@ -110,92 +114,7 @@ function publishQuestion() {
         button.appendChild(li);
         ol.appendChild(button);
         choices.appendChild(ol);
-        checkAnswer();
-    }
 
-
-
-
-    /*
-    question.options.forEach(choicesArray);
- 
-    function choicesArray(element) {
-        button = document.createElement("button");
- 
-        li = document.createElement("li");
-        li.setAttribute("style", "background-color: #563d7c")
-        li.textContent = element;
- 
-        button.appendChild(li);
-        ol.appendChild(button);
-        choices.appendChild(ol);
-        checkAnswer();
-    };
- 
-*/
-
-
-
-};
-
-
-/* for (var j = 0; j < currentQuestion.options.length; j++) {
-       choices[j] = currentQuestion.options[j];
-       li = document.createElement("li");
-       li.setAttribute("style", "background-color: #563d7c");
-       li.textContent = choices[j];
-       button = document.createElement("button");
-       button.appendChild(li);
-       ol.appendChild(button);
-       checkAnswer();
-   }*/
-
-/*
-          quiz[0].options.forEach(choicesArray);
-  
-          function choicesArray(element) {
-              li = document.createElement("li");
-              li.setAttribute("style", "background-color: #563d7c")
-              li.textContent = element;
-              button = document.createElement("button");
-              button.appendChild(li);
-              ol.appendChild(button);
-              
-          };*/
-
-
-
-function checkAnswer() {
-
-
-    // When answer is clicked, provide result and  the next question appear - If answer is incorrect, reduce time left
-
-    button.addEventListener("click", function (event) {
-
-        li = event.target;
-
-        var answerCheck = document.querySelector("#feedback");
-        answerCheck.setAttribute("class", "feedback");
-
-        // Provides answers feed-back after clicking on answers
-
-        if (li.textContent === quiz[questionIndex].answer) {
-            answerCheck.innerHTML = "Correct";
-            questions.appendChild(answerCheck);
-        }
-
-        // when providing a wrong answers, substract time from the timer
-        else {
-            answerCheck.innerHTML = "Incorrect";
-            questions.appendChild(answerCheck);
-
-            if (secondsLeft <= 10) {
-                secondsLeft = 0;
-            }
-            else {
-                secondsLeft -= 10;
-            }
-        };
 
         setTimeout(function () {
             feedback.setAttribute("class", "feedback hide");
@@ -211,23 +130,11 @@ function checkAnswer() {
             publishQuestion();
         }
 
-        console.log(answerCheck.innerHTML);
-    });
 
 
 };
 
-    //if (secondsLeft = 0 || No questions left ) 
 
-
-// Function that ends the Quiz and provides final score
-
-function quizEnd() {
-    clearInterval(timerInterval);
-    endScreen.classList.remove("hide");
-  
-
-}
 
 
 
