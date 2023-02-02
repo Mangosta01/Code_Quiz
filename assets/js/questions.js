@@ -110,7 +110,7 @@ function publishQuestion() {
         button.appendChild(li);
         ol.appendChild(button);
         choices.appendChild(ol);
-        checkAnswer();
+        
     }
 
 
@@ -165,69 +165,13 @@ function publishQuestion() {
 
 
 
-function checkAnswer() {
 
-
-    // When answer is clicked, provide result and  the next question appear - If answer is incorrect, reduce time left
-
-    button.addEventListener("click", function (event) {
-
-        li = event.target;
-
-        var answerCheck = document.querySelector("#feedback");
-        answerCheck.setAttribute("class", "feedback");
-
-        // Provides answers feed-back after clicking on answers
-
-        if (li.textContent === quiz[questionIndex].answer) {
-            answerCheck.innerHTML = "Correct";
-            questions.appendChild(answerCheck);
-        }
-
-        // when providing a wrong answers, substract time from the timer
-        else {
-            answerCheck.innerHTML = "Incorrect";
-            questions.appendChild(answerCheck);
-
-            if (secondsLeft <= 10) {
-                secondsLeft = 0;
-            }
-            else {
-                secondsLeft -= 10;
-            }
-        };
-
-        setTimeout(function () {
-            feedback.setAttribute("class", "feedback hide");
-        }, 2000);
-
-        //End quiz if all questions are answered or publish next question
-
-        questionIndex++;
-        if (questionIndex === quiz.length) {
-            quizEnd();
-        }
-        else {
-            publishQuestion();
-        }
-
-        console.log(answerCheck.innerHTML);
-    });
-
-
-};
 
     //if (secondsLeft = 0 || No questions left ) 
 
 
 // Function that ends the Quiz and provides final score
 
-function quizEnd() {
-    clearInterval(timerInterval);
-    endScreen.classList.remove("hide");
-  
-
-}
 
 
 
