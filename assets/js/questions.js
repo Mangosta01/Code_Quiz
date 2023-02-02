@@ -3,9 +3,11 @@ var questionTitle = document.querySelector("#question-title");
 var choices = document.querySelector("#choices");
 var quizStart = document.querySelector("#start");
 var timing = document.querySelector(".timer");
-var quizPage = document.querySelector(".wrapper")
-var scores = document.querySelector(".scores")
-var startScreen = document.querySelector(".start")
+var quizPage = document.querySelector(".wrapper");
+var scores = document.querySelector(".scores");
+var startScreen = document.querySelector(".start");
+var chosenAnswer = document.querySelector(".choices");
+
 
 // create the list of questions and answer choices
 
@@ -14,8 +16,8 @@ var quiz = [
 
     {
         title: " What does HTML stand for?",
-        options: ["High Texture Machine Learning", "Hypertext Machine Language", "Hover The Mouse Left", "Hight Temperature Measurement Lens"],
-        answer: 1,
+        options: ["High Texture Machine Learning", "Hypertext Machine Language", "Hover The Mouse Left", "High Temperature Measurement Lens"],
+        answer: "Hypertext Machine Language",
     },
 
 
@@ -46,8 +48,10 @@ var quiz = [
 
 ]
 
+
+
 console.log(quiz[0].title);
-console.log(quiz[0].options.length)
+console.log(quiz[0].answer)
 
 var secondsLeft = 60;
 
@@ -85,39 +89,92 @@ quizStart.addEventListener("click", function () {
         questions.classList.remove("hide");
         questions.classList.remove("start");
 
+        
+        
         // Publish 1st question of the quiz in the HTML
 
 
         var ol = document.createElement("ol");
         choices.appendChild(ol);
+        var button = document.createElement("button");
+        var li = document.createElement("li")
 
-        for (var i = 0; i < quiz.length; i++)
-            for (var j = 0; j < quiz[i].options.length; j++) {
-                questionTitle.textContent = quiz[i].title;
-                choices = quiz[i].options[j];
+        
+        questionTitle.textContent = quiz[0].title;
 
+        function checkAnswer() {
+            for (var j = 0; j < quiz[0].options.length; j++) {
+                choices[j] = quiz[0].options[j];
+                li = document.createElement("li");
+                li.setAttribute("style", "background-color: #563d7c");
+                li.textContent = choices[j];
+                button = document.createElement("button");
+                button.appendChild(li);
+                ol.appendChild(button);
+
+
+                /*
+                        quiz[0].options.forEach(choicesArray);
                 
-                var li = document.createElement("li");
+                        function choicesArray(element) {
+                            li = document.createElement("li");
+                            li.setAttribute("style", "background-color: #563d7c")
+                            li.textContent = element;
+                            button = document.createElement("button");
+                            button.appendChild(li);
+                            ol.appendChild(button);
+                            
+                        };*/
+
+                // When answer is clicked, provide result and  the next question appear - If answer is incorrect, reduce time left
+
+                button.addEventListener("click", function (event) {
+                    li = event.target;
 
 
-                li.textContent = choices;
-                li.setAttribute("data-index", j)
-                ol.appendChild(li);
-                return;
-            }
+                    var answerCheck = document.createElement("div")
 
+                    if (li.textContent === quiz[0].answer) {
+                        answerCheck.innerHTML = "Correct";
+                        questions.appendChild(answerCheck);
+                    }
+                    else {
+                        answerCheck.innerHTML = "Incorrect";
+                        questions.appendChild(answerCheck);
+
+                        if (secondsLeft <=10){
+                            secondsLeft =0;
+                        }
+                        else{
+                            secondsLeft -=10;
+                        }
+                    }
+
+                });
+
+
+
+
+            };
+
+
+        };
+
+        checkAnswer();
 
 
 
 
         // create a function that ends the Quiz when all questions are answered or the timer reaches 0
-        /*  if (secondsLeft = 0 || No questions left ) */
+        /*if (secondsLeft = 0 || No questions left ) */
+
+
 
 
     };
-
     setTime();
     startQuiz();
+
 
 });
 
