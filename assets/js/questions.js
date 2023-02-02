@@ -51,14 +51,14 @@ console.log(quiz[0].options.length)
 
 var secondsLeft = 60;
 
-var index = 0;
+var questionIndex = 0;
 
 //create a function that launch a timer and  the set of questions after clicking on the start quiz button
 
 quizStart.addEventListener("click", function () {
 
     // create a function that launch a timer after event click
-    function setTime() {
+    
 
         var timerInterval = setInterval(function () {
 
@@ -74,59 +74,165 @@ quizStart.addEventListener("click", function () {
 
         }, 1000);
 
-    };
-
-
-
-    function startQuiz() {
-
-
         startScreen.classList.add("hide");
         questions.classList.remove("hide");
         questions.classList.remove("start");
+    
+        publishQuestion();
 
-        // Publish 1st question of the quiz in the HTML
-
-
-        var ol = document.createElement("ol");
-        choices.appendChild(ol);
-
-        for (var i = 0; i < quiz.length; i++)
-            for (var j = 0; j < quiz[i].options.length; j++) {
-                questionTitle.textContent = quiz[i].title;
-                choices = quiz[i].options[j];
-
-                
-                var li = document.createElement("li");
-
-
-                li.textContent = choices;
-                li.setAttribute("data-index", j)
-                ol.appendChild(li);
-                return;
-            }
-
-
-
-
-
-        // create a function that ends the Quiz when all questions are answered or the timer reaches 0
-        /*  if (secondsLeft = 0 || No questions left ) */
-
-
-    };
-
-    setTime();
-    startQuiz();
-
+    
 });
 
-// create a function that provides answers feed-back after clicking on answers
-
-// when providing a wrong answers, write a code that takes out time from the timer
-
-
+var ol = document.createElement("ol");
+var button = document.createElement("button");
+var li = document.createElement("li")
 
 
+function publishQuestion() {
 
-// allow the user to enter his initials and submit it - then publish the answer on the highscore page git stat
+
+    var question = quiz[questionIndex];
+    var questionTitle = document.getElementById("question-title");
+
+
+    questionTitle.textContent = question.title;
+
+
+    ol.innerHTML = "";
+
+
+    for (var j = 0; j < question.options.length; j++) {
+        choices[j] = question.options[j];
+        li = document.createElement("li");
+        li.setAttribute("style", "background-color: #563d7c");
+        li.textContent = choices[j];
+        button = document.createElement("button");
+        button.appendChild(li);
+        ol.appendChild(button);
+        choices.appendChild(ol);
+        checkAnswer();
+    }
+
+
+
+
+    /*
+    question.options.forEach(choicesArray);
+ 
+    function choicesArray(element) {
+        button = document.createElement("button");
+ 
+        li = document.createElement("li");
+        li.setAttribute("style", "background-color: #563d7c")
+        li.textContent = element;
+ 
+        button.appendChild(li);
+        ol.appendChild(button);
+        choices.appendChild(ol);
+        checkAnswer();
+    };
+ 
+*/
+
+
+
+};
+
+
+/* for (var j = 0; j < currentQuestion.options.length; j++) {
+       choices[j] = currentQuestion.options[j];
+       li = document.createElement("li");
+       li.setAttribute("style", "background-color: #563d7c");
+       li.textContent = choices[j];
+       button = document.createElement("button");
+       button.appendChild(li);
+       ol.appendChild(button);
+       checkAnswer();
+   }*/
+
+/*
+          quiz[0].options.forEach(choicesArray);
+  
+          function choicesArray(element) {
+              li = document.createElement("li");
+              li.setAttribute("style", "background-color: #563d7c")
+              li.textContent = element;
+              button = document.createElement("button");
+              button.appendChild(li);
+              ol.appendChild(button);
+              
+          };*/
+
+
+
+function checkAnswer() {
+
+
+    // When answer is clicked, provide result and  the next question appear - If answer is incorrect, reduce time left
+
+    button.addEventListener("click", function (event) {
+
+        li = event.target;
+
+        var answerCheck = document.querySelector("#feedback");
+        answerCheck.setAttribute("class", "feedback");
+
+        // Provides answers feed-back after clicking on answers
+
+        if (li.textContent === quiz[questionIndex].answer) {
+            answerCheck.innerHTML = "Correct";
+            questions.appendChild(answerCheck);
+        }
+
+        // when providing a wrong answers, substract time from the timer
+        else {
+            answerCheck.innerHTML = "Incorrect";
+            questions.appendChild(answerCheck);
+
+            if (secondsLeft <= 10) {
+                secondsLeft = 0;
+            }
+            else {
+                secondsLeft -= 10;
+            }
+        };
+
+        setTimeout(function () {
+            feedback.setAttribute("class", "feedback hide");
+        }, 2000);
+
+        //End quiz if all questions are answered or publish next question
+
+        questionIndex++;
+        if (questionIndex === quiz.length) {
+            quizEnd();
+        }
+        else {
+            publishQuestion();
+        }
+
+        console.log(answerCheck.innerHTML);
+    });
+
+
+};
+
+    //if (secondsLeft = 0 || No questions left ) 
+
+
+// Function that ends the Quiz and provides final score
+
+function quizEnd() {
+    clearInterval(timerInterval);
+    endScreen.classList.remove("hide");
+  
+
+}
+
+
+
+
+
+
+
+    // allow the user to enter his initials and submit it - then publish the answer on the highscore page git stat
