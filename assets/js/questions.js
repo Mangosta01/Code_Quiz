@@ -3,9 +3,11 @@ var questionTitle = document.querySelector("#question-title");
 var choices = document.querySelector("#choices");
 var quizStart = document.querySelector("#start");
 var timing = document.querySelector(".timer");
-var quizPage = document.querySelector(".wrapper")
-var scores = document.querySelector(".scores")
-var startScreen = document.querySelector(".start")
+var quizPage = document.querySelector(".wrapper");
+var scores = document.querySelector(".scores");
+var startScreen = document.querySelector(".start");
+var chosenAnswer = document.querySelector(".choices");
+
 
 // create the list of questions and answer choices
 
@@ -14,8 +16,8 @@ var quiz = [
 
     {
         title: " What does HTML stand for?",
-        options: ["High Texture Machine Learning", "Hypertext Machine Language", "Hover The Mouse Left", "Hight Temperature Measurement Lens"],
-        answer: 1,
+        options: ["High Texture Machine Learning", "Hypertext Machine Language", "Hover The Mouse Left", "High Temperature Measurement Lens"],
+        answer: "Hypertext Machine Language",
     },
 
 
@@ -46,8 +48,10 @@ var quiz = [
 
 ]
 
+
+
 console.log(quiz[0].title);
-console.log(quiz[0].options.length)
+console.log(quiz[0].answer)
 
 var secondsLeft = 60;
 
@@ -95,7 +99,7 @@ function publishQuestion() {
     var questionTitle = document.getElementById("question-title");
 
 
-    questionTitle.textContent = question.title;
+
 
 
     ol.innerHTML = "";
