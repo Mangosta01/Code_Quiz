@@ -11,7 +11,7 @@ var chosenAnswer = document.querySelector(".choices");
 var endScreen = document.querySelector("#end-screen");
 var finalScore = document.querySelector("#final-score")
 var playerInitials = document.querySelector("#initials")
-
+var submit = document.querySelector("#submit");
 
 
 
@@ -27,7 +27,7 @@ var questionIndex = 0;
 
 quizStart.addEventListener("click", function () {
 
-   // Timer function that ends the quiz and stops execution when secondsLeft <=0
+    // Timer function that ends the quiz and stops execution when secondsLeft <=0
 
 
     timerInterval = setInterval(function () {
@@ -208,6 +208,55 @@ function quizEnd() {
 
 
 
-    // allow the user to enter his initials and submit it - then publish the answer on the highscore page git stat
+// allow the user to enter his initials and submit it 
 
-    
+
+var submit = document.querySelector("#submit");
+
+var message = document.createElement("div");
+
+
+submit.addEventListener("click", function (event) {
+    event.preventDefault();
+
+
+    var lastHighscores = {
+
+        score: secondsLeft,
+        initials: playerInitials.value
+
+    };
+
+
+
+    function displayMessage() {
+
+        message.setAttribute("style", "color: red")
+
+        if (lastHighscores.initials === "") {
+            message.textContent = "Sorry, Initials cannot be blank.";
+            endScreen.appendChild(message);
+        }
+        else {
+            message.textContent = "Congratulations, Your score has been saved."
+            endScreen.appendChild(message);
+        }
+
+    }
+
+    displayMessage();
+
+   
+
+    var Highscores = JSON.parse(localStorage.getItem("Highscores"));
+
+    Highscores.push(lastHighscores);
+
+
+    localStorage.setItem("Highscores", JSON.stringify(Highscores));
+
+console.log(Highscores);
+
+});
+
+
