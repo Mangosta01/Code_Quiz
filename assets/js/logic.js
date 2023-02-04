@@ -248,14 +248,15 @@ submit.addEventListener("click", function (event) {
 
    
 
-    var Highscores = JSON.parse(localStorage.getItem("Highscores"));
+    var Highscores = JSON.parse(window.localStorage.getItem("Highscores")) || [];
 
-    Highscores.push(lastHighscores);
+  Highscores.push(lastHighscores);
 
 
     localStorage.setItem("Highscores", JSON.stringify(Highscores));
 
 console.log(Highscores);
+console.log (lastHighscores);
 
 });
 

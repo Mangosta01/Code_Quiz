@@ -10,7 +10,7 @@ var clearResults = document.querySelector("#clear");
 function publishHighscores() {
 
     
-    var Highscores = JSON.parse(localStorage.getItem("Highscores"));
+    var Highscores = JSON.parse(window.localStorage.getItem("Highscores")) || [];
 
  
     
@@ -24,9 +24,15 @@ function publishHighscores() {
 
 publishHighscores();
 
+
 //Clear the score on the highscore page
 
-clearResults.addEventListener("click", function () {
-    results.textContent = "";
+clearResults.addEventListener("click", function (event) {
 
-});
+    event.preventDefault();
+
+
+    window.localStorage.removeItem("Highscores");
+    window.location.reload();
+ 
+}); 
