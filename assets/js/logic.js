@@ -90,56 +90,6 @@ function publishQuestion() {
 
 };
 
-
-/*
-question.options.forEach(choicesArray);
-
-function choicesArray(element) {
-    button = document.createElement("button");
-
-    li = document.createElement("li");
-    li.setAttribute("style", "background-color: #563d7c")
-    li.textContent = element;
-
-    button.appendChild(li);
-    ol.appendChild(button);
-    choices.appendChild(ol);
-    checkAnswer();
-};
-
-*/
-
-
-
-
-
-
-/* for (var j = 0; j < currentQuestion.options.length; j++) {
-       choices[j] = currentQuestion.options[j];
-       li = document.createElement("li");
-       li.setAttribute("style", "background-color: #563d7c");
-       li.textContent = choices[j];
-       button = document.createElement("button");
-       button.appendChild(li);
-       ol.appendChild(button);
-       checkAnswer();
-   }*/
-
-/*
-          quiz[0].options.forEach(choicesArray);
-  
-          function choicesArray(element) {
-              li = document.createElement("li");
-              li.setAttribute("style", "background-color: #563d7c")
-              li.textContent = element;
-              button = document.createElement("button");
-              button.appendChild(li);
-              ol.appendChild(button);
-              
-          };*/
-
-
-
 function checkAnswer() {
 
 
