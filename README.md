@@ -50,6 +50,10 @@ W3 Schools  - Timing Event - https://www.w3schools.com/js/js_timing.asp
 
 Github - Nhanng19 - Timed_quiz - https://github.com/nhanng19/timed_quiz/blob/main/index.html 
 
+MDN Web docs - Array.prototype.sort() - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort 
+
+W3 Schools - Javascript Sorting Arrays - https://www.w3schools.com/js/js_array_sort.asp 
+
 
 ## License
 

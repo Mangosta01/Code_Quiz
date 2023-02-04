@@ -12,6 +12,9 @@ function publishHighscores() {
     
     var Highscores = JSON.parse(window.localStorage.getItem("Highscores")) || [];
 
+    Highscores.sort(function (a,b){return b.score - a.score});
+    
+
  
     
     for (var i=0; i<Highscores.length; i++){
