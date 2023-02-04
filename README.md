@@ -10,6 +10,7 @@ The week 6 challenge required me to build a timed coding quiz with multiple-choi
 
 The following image shows the web application's appearance and functionality:
 
+
 ![Code Quiz](08-web-apis-challenge-demo.gif)
 
 Features of the application are described below:
